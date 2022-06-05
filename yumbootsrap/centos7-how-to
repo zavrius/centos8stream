@@ -1,0 +1,41 @@
+yumbootstrap Centos7
+
+cd /tmp
+wget ftp://ftp.pbone.net/mirror/ftp5.gwdg.de/pub/opensuse/repositories/home:/bayrepo/CentOS_7/noarch/yumbootstrap-0.0.3-7.5.noarch.rpm
+
+rpm -qa | egrep "python-setuptools|rpm-build|make"
+rpm-build-4.11.3-48.el7_9.x86_64
+make-3.82-24.el7.x86_64
+python-setuptools-0.9.8-7.el7.noarch
+automake-1.13.4-3.el7.noarch
+rpm-build-libs-4.11.3-48.el7_9.x86_64
+
+yum localinstall yumbootstrap-0.0.3-7.5.noarch.rpm
+rpm -qi yumbootstrap
+
+/usr/sbin/yumbootstrap --list-suites
+mkdir /ct1
+/usr/sbin/yumbootstrap --verbose centos-7 /ct1
+
+Может быть ошибка, но она не будет мешать!
+error: Failed to initialize NSS library
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpm/__init__.py", line 10, in <module>
+    from rpm.transaction import *
+  File "/usr/lib64/python2.7/site-packages/rpm/transaction.py", line 5, in <module>
+    from rpm._rpm import ts as TransactionSetCore
+ImportError: cannot import name ts
+Traceback (most recent call last):
+  File "/etc/yumbootstrap/suites/scripts/fix_rpmdb.py", line 27, in <module>
+    yum.fix_rpmdb()
+  File "/usr/lib/python2.7/site-packages/yumbootstrap/yum.py", line 167, in fix_rpmdb
+    env = self.yum_conf.env,
+  File "/usr/lib/python2.7/site-packages/yumbootstrap/sh.py", line 90, in run
+    check_error(command[0], proc.returncode)
+  File "/usr/lib/python2.7/site-packages/yumbootstrap/sh.py", line 16, in check_error
+    raise YBError('"%s" exited with code %d', cmd, code, exit = 1)
+yumbootstrap.exceptions.YBError: "python" exited with code 1
+"/etc/yumbootstrap/suites/scripts/fix_rpmdb.py" exited with code 1
+
+chroot /ct1
